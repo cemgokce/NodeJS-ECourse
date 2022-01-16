@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 // Route Middlewares
 // app.use("/auth", routes.auth);
 app.use("/users", routes.users);
-// app.use("/roles", routes.roles);
+app.use("/roles", routes.roles);
 // app.use("/userRoles", routes.userRoles);
 app.use("/categories", routes.categories);
 app.use("/prices", routes.prices);

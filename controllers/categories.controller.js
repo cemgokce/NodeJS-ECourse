@@ -18,7 +18,6 @@ exports.getById = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     const categories = await Category.findAll();
-    console.log('no category found')
 
     if (!categories) {
         return res.status(404).send({

@@ -18,7 +18,6 @@ exports.getById = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     const users = await User.findAll();
-    console.log('no user found')
 
     if (!users) {
         return res.status(404).send({
@@ -66,7 +65,6 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
 
     const { firstName, lastName, email, password } = req.body;
-    const money = req.body.try;
 
     const { id } = req.params;
 
