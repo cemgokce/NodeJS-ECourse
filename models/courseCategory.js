@@ -1,4 +1,4 @@
-const {DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize.config');
 const course = require("./Course");
 const category = require("./category");
@@ -13,15 +13,17 @@ const CourseCategory = sequelize.define('courseCategory', {
   }
 }, {
   // Other model options go here
-  timestamps: true,  
+  timestamps: true,
   createdAt: 'createdOn',
   updatedAt: 'updatedOn',
   tableName: 'CourseCategory',
 });
 
-course.belongsToMany(category, { through: CourseCategory, foreignKey:{allowNull:false, name:'courseId'}});
-category.belongsToMany(course, { through: CourseCategory, foreignKey:{allowNull:false, name:'categoryId'}});
+course.belongsToMany(category, { through: CourseCategory, foreignKey: { allowNull: false, name: 'courseId' } });
+category.belongsToMany(course, { through: CourseCategory, foreignKey: { allowNull: false, name: 'categoryId' } });
 CourseCategory.belongsTo(course);
 CourseCategory.belongsTo(category);
+course.hasMany(CourseCategory, { foreingKey: { name: "courseId", allowNull: false }, onDelete: "CASCADE" });
+category.hasMany(CourseCategory, { foreingKey: { name: "categoryId", allowNull: false }, onDelete: "CASCADE" });
 
 module.exports = CourseCategory;

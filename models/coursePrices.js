@@ -23,5 +23,7 @@ course.belongsToMany(price, { through: CoursePrices, foreignKey: { allowNull: fa
 price.belongsToMany(course, { through: CoursePrices, foreignKey: { allowNull: false, name: 'priceId' } });
 CoursePrices.belongsTo(course);
 CoursePrices.belongsTo(price);
+course.hasMany(CoursePrices, { foreingKey: { name: "courseId", allowNull: false }, onDelete: "CASCADE" });
+price.hasMany(CoursePrices, { foreingKey: { name: "priceId", allowNull: false }, onDelete: "CASCADE" });
 
 module.exports = CoursePrices;
