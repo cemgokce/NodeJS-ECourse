@@ -1,10 +1,18 @@
 const User = require('../models/User')
+const UserRole = require('../models/userRole')
+const Role = require('../models/role')
 const { saltAndHashPassword } = require('../utils/password')
 
 
 exports.getById = async (req, res) => {
     const { id } = req.params;
     const user = await User.findOne({
+        include: [
+            {
+                model: UserRole,
+                include: [{ model: Role }]
+            }
+        ],
         where: { id }
     });
     if (!user) {

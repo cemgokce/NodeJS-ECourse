@@ -18,7 +18,9 @@ const sequelize = require("./config/sequelize.config");
 app.use(bodyParser.json());
 
 // Route Middlewares
-// app.use("/auth", routes.auth);
+
+//auth 
+app.use("/auth", routes.auth);
 
 //user
 app.use("/users", routes.users);
@@ -36,11 +38,13 @@ app.use("/categories", routes.categories);
 //price
 app.use("/prices", routes.prices);
 
-
+//not found
 app.use((req, res) => {
     res.status(404).send("404 Page not found.");
 });
 
+
+//database synchronization before listening to port
 sequelize
     .sync({ force: false })
     .then(result => {
