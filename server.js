@@ -13,9 +13,18 @@ const userRole = require('./models/userRole');
 
 const sequelize = require("./config/sequelize.config");
 
-app.get("/", (req, res) => {
-    res.send("hey from the homepage!");
-});
+// Route Middlewares
+app.use("/auth", routes.auth);
+app.use("/users", routes.users);
+app.use("/roles", routes.roles);    //
+app.use("/userRoles", routes.userRoles);
+app.use("/categories", routes.categories);
+app.use("/prices", routes.prices);
+app.use("/courses", routes.courses);
+app.use("/productCategories", routes.productCategories);
+app.use("/productLibraries", routes.productLibraries);
+
+
 sequelize
     .sync({ force: false })
     .then(result => {
