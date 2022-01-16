@@ -32,7 +32,6 @@ exports.getAll = async (req, res) => {
 exports.create = async (req, res) => {
     console.log(req.body);
     const { name } = req.body;
-    const money = req.body.try;
 
     // Checks if the category fields exists. 
     if (!name) {
