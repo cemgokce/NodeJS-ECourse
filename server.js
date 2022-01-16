@@ -19,19 +19,28 @@ app.use(bodyParser.json());
 
 // Route Middlewares
 // app.use("/auth", routes.auth);
+
+//user
 app.use("/users", routes.users);
 app.use("/roles", routes.roles);
-// app.use("/userRoles", routes.userRoles);
+app.use("/userRoles", routes.userRoles);
+
+//course
+app.use("/courses", routes.courses);
+app.use("/coursePrices", routes.coursPrices);
+app.use("/courseCategories", routes.coursesCategories);
+
+//category
 app.use("/categories", routes.categories);
+
+//price
 app.use("/prices", routes.prices);
 
-app.use("/courses", routes.courses);
-// app.use("/productCategories", routes.productCategories);
-// app.use("/productLibraries", routes.productLibraries);
 
 app.use((req, res) => {
     res.status(404).send("404 Page not found.");
 });
+
 sequelize
     .sync({ force: false })
     .then(result => {

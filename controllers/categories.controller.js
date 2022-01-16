@@ -3,7 +3,7 @@ const Category = require('../models/Category')
 
 exports.getById = async (req, res) => {
     const { id } = req.params;
-    console.log(id)
+
     const category = await Category.findOne({
         where: { id }
     });
@@ -29,7 +29,6 @@ exports.getAll = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-    console.log(req.body);
     const { name } = req.body;
 
     // Checks if the category fields exists. 
@@ -59,11 +58,9 @@ exports.create = async (req, res) => {
     }
 };
 
-
 exports.update = async (req, res) => {
 
     const { name } = req.body;
-    const money = req.body.try;
 
     const { id } = req.params;
 
@@ -90,7 +87,6 @@ exports.update = async (req, res) => {
         });
     }
 };
-
 
 exports.delete = async (req, res) => {
     const { id } = req.params;

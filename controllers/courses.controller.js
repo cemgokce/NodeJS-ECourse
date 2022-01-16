@@ -1,5 +1,5 @@
 const Course = require('../models/Course')
-const CourseCategory = require('../models/CourseCategory')
+const CourseCategory = require('../models/courseCategory')
 const CoursePrice = require('../models/coursePrices')
 const Price = require('../models/Price')
 const Category = require('../models/category')
