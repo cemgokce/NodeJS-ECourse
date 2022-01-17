@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router();
+const { studentAuth, teacherAuth, adminAuth } = require("../middlewares/verifyToken");
 const courseCategoriesController = require("../controllers/courseCategories.controller")
 
 
@@ -9,9 +10,9 @@ router.get("/:id", courseCategoriesController.getById);
 router.get("/", courseCategoriesController.getAll);
 
 // Protected routes
-router.post("/", courseCategoriesController.create);
-router.put("/:id", courseCategoriesController.update);
-router.delete("/:id", courseCategoriesController.delete);
+router.post("/", teacherAuth, courseCategoriesController.create);
+router.put("/:id", teacherAuth, courseCategoriesController.update);
+router.delete("/:id", teacherAuth, courseCategoriesController.delete);
 
 module.exports = router;
 

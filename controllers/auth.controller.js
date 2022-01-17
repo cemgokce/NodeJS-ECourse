@@ -1,7 +1,7 @@
 require("dotenv").config();
 const UserRole = require("../models/userRole");
-const User = require('../models/user');
-const Role = require('../models/role');
+const User = require('../models/User');
+const Role = require('../models/Role');
 const jwt = require("jsonwebtoken");
 const { saltAndHashPassword, comparePasswords } = require("../utils/password");
 const { registerValidation, loginValidation } = require("../utils/validation");
@@ -72,7 +72,6 @@ exports.login = async (req, res) => {
 
     // Get user claims
     const roles = await getClaims(user.id);
-
     // Create & assign a token
     const token = jwt.sign(
         { uii: user.id, roles: roles, email: user.email },
@@ -111,7 +110,7 @@ const getClaims = async (userId) => {
     const userRoles = await UserRole.findAll({
         where: { userId },
         attributes: ["roleId"],
-        include: { model: Role, right: true, attributes: ["name"] }    // Includes Roles table and selects name field only. 
+        include: { model: Role }     // Includes Roles table and selects name field only. 
     });
 
     console.log("getClaims");
