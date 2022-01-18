@@ -3,6 +3,11 @@ const CourseCategory = require('../models/courseCategory')
 const CoursePrice = require('../models/coursePrices')
 const Price = require('../models/Price')
 const Category = require('../models/category')
+const { Sequelize } = require("sequelize");
+const Op = Sequelize.Op;
+
+
+
 
 
 
@@ -76,8 +81,6 @@ exports.create = async (req, res) => {
         });
     }
 };
-
-
 exports.update = async (req, res) => {
     const { name, photo, description, content, ownerId } = req.body;
     const { id } = req.params;
@@ -116,8 +119,6 @@ exports.update = async (req, res) => {
         });
     }
 };
-
-
 exports.delete = async (req, res) => {
     const { id } = req.params;
 
@@ -139,3 +140,44 @@ exports.delete = async (req, res) => {
         });
     }
 };
+
+exports.getByCategoryId = async (req, res) => {
+    const { id } = req.params;
+    console.log(id)
+    const course = await Category.findOne({
+        include: [
+            {
+                model: CourseCategory,
+                include: [{ model: Course }]
+            }
+        ],
+        where: { id }
+    });
+    if (!course) {
+        return res.status(404).send({
+            message: `No courses found with the id ${id}`,
+        });
+    }
+
+    return res.status(200).send(course);
+}
+
+exports.getByName = async (req, res) => {
+    const { name } = req.params;
+    const course = await Course.findAll({
+        where: {
+            name: {
+                [Op.substring]: name
+            }
+        }
+    });
+    if (!course) {
+        return res.status(404).send({
+            message: `No courses found with the id ${id}`,
+        });
+    }
+
+    return res.status(200).send(course);
+
+}
+

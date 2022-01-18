@@ -10,9 +10,9 @@ router.get("/:id", courseCategoriesController.getById);
 router.get("/", courseCategoriesController.getAll);
 
 // Protected routes
-router.post("/", teacherAuth, courseCategoriesController.create);
-router.put("/:id", teacherAuth, courseCategoriesController.update);
-router.delete("/:id", teacherAuth, courseCategoriesController.delete);
+router.post("/", courseCategoriesController.create);
+router.put("/:id", courseCategoriesController.update);
+router.delete("/:id", courseCategoriesController.delete);
 
 module.exports = router;
 
