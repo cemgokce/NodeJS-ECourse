@@ -6,7 +6,7 @@ const userRoles = require("../controllers/userRoles.controller")
 //get methods
 //all routes starts with /userroles
 router.get("/:id", adminAuth, userRoles.getById);
-router.get("/", adminAuth, userRoles.getAll);
+router.get("/", userRoles.getAll);
 
 // Protected routes
 router.post("/", adminAuth, userRoles.create);

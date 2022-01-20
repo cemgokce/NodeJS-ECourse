@@ -12,7 +12,7 @@ exports.register = async (req, res) => {
     // Validate user object
     const { error } = registerValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-
+    console.log(req.body)
     const { firstName, lastName, email, password, rolestatus } = req.body;
 
     // Check if the user is already in the database

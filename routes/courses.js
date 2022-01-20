@@ -10,7 +10,7 @@ const { route } = require("express/lib/router");
 // router.get("/get", courseController.findAllCoursesPaginate);  //TODO: The path can be changed
 
 //get methods
-router.get("/", courseController.getAll);
+router.get("/",  courseController.getAll);
 router.get("/:id", courseController.getById);
 
 // Protected routes

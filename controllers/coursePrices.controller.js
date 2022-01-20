@@ -1,3 +1,4 @@
+//Controller for course prices
 const CoursePrice = require('../models/coursePrices')
 
 exports.getById = async (req, res) => {

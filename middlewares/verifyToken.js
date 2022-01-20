@@ -13,7 +13,7 @@ function studentAuth(req, res, next) {
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         console.log("StudentToken", JSON.stringify(verified.roles[0].role.name));
-        if (verified.roles[0].role.name === 'Student' || 'Teacher' || 'Admin') {
+        if (JSON.stringify(verified.roles[0].role.name).includes('Student' || 'Teacher' || 'Admin')) {
             req.user = verified;
 
         } else {
@@ -37,14 +37,16 @@ function teacherAuth(req, res, next) {
 
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        console.log("StudentToken", JSON.stringify(verified.roles[0].role.name));
-        if (verified.roles[0].role.name === 'Student' || 'Admin') {
+        console.log("TeacherToken", JSON.stringify(verified.roles[0].role.name));
+        if (JSON.stringify(verified.roles[0].role.name).includes("Teacher" || "Admin")) {
+            console.log('icine girdii')
             req.user = verified;
-
+            next();
         } else {
             res.status(400).send("Invalid Token");
         }
-        next();
+
+
 
     } catch (error) {
         res.status(400).send("Invalid Token");
@@ -62,8 +64,8 @@ function adminAuth(req, res, next) {
 
     try {
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        console.log("StudentToken", JSON.stringify(verified.roles[0].role.name));
-        if (verified.roles[0].role.name === 'Admin') {
+        console.log("AdminToken", JSON.stringify(verified.roles[0].role.name));
+        if (JSON.stringify(verified.roles[0].role.name).includes('Admin')) {
             req.user = verified;
 
         } else {

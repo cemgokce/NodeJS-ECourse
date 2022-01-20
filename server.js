@@ -3,18 +3,45 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
+const routes = require('./routes');
+const sequelize = require("./config/sequelize.config");
+
+// #region MODELS
+
+//category
 const category = require('./models/category');
+//course
 const course = require('./models/Course');
-const courseCategory = require('./models/courseCategory');
-const coursePrices = require('./models/coursePrices');
+//price
 const price = require('./models/price');
+//comment
+const comment = require('./models/comment');
+//content
+const content = require('./models/content');
+//rate
+const rate = require('./models/rate');
+//brief
+const brief = require('./models/brief');
+//user
 const role = require('./models/role');
 const user = require('./models/user');
+
+//userRelation
 const userRole = require('./models/userRole');
-const routes = require('./routes');
+const userCourse = require('./models/userCourses');
+
+//courseRelation
+const courseCategory = require('./models/courseCategory');
+const coursePrices = require('./models/coursePrices');
+const courseComment = require('./models/courseComments');
+const courseRate = require('./models/courseRates');
+const courseContent = require('./models/courseContents');
+const courseUser = require('./models/courseUsers');
+
+//#endregion
 
 
-const sequelize = require("./config/sequelize.config");
+//#region MİDDLEWARE
 
 app.use(bodyParser.json());
 
@@ -46,6 +73,8 @@ app.use("/prices", routes.prices);
 app.use((req, res) => {
     res.status(404).send("404 Page not found.");
 });
+
+//#endregion
 
 
 //database synchronization before listening to port

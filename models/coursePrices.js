@@ -3,7 +3,8 @@ const sequelize = require('../config/sequelize.config');
 const course = require("./Course");
 const price = require("./price");
 
-const CoursePrices = sequelize.define('coursePrices', {
+
+const CoursePrice = sequelize.define('coursePrice', {
   // Model attributes are defined here
   id: {
     autoIncrement: true,
@@ -16,14 +17,14 @@ const CoursePrices = sequelize.define('coursePrices', {
   timestamps: true,
   createdAt: 'createdOn',
   updatedAt: 'updatedOn',
-  tableName: 'CoursePrices',
+  tableName: 'CoursePrice',
 });
 
-course.belongsToMany(price, { through: CoursePrices, foreignKey: { allowNull: false, name: 'courseId' } });
-price.belongsToMany(course, { through: CoursePrices, foreignKey: { allowNull: false, name: 'priceId' } });
-CoursePrices.belongsTo(course);
-CoursePrices.belongsTo(price);
-course.hasMany(CoursePrices, { foreingKey: { name: "courseId", allowNull: false }, onDelete: "CASCADE" });
-price.hasMany(CoursePrices, { foreingKey: { name: "priceId", allowNull: false }, onDelete: "CASCADE" });
+course.belongsToMany(price, { through: CoursePrice, foreignKey: { allowNull: false, name: 'courseId' } });
+price.belongsToMany(course, { through: CoursePrice, foreignKey: { allowNull: false, name: 'priceId' } });
+CoursePrice.belongsTo(course);
+CoursePrice.belongsTo(price);
+course.hasMany(CoursePrice, { foreingKey: { name: "courseId", allowNull: false }, onDelete: "CASCADE" });
+price.hasMany(CoursePrice, { foreingKey: { name: "priceId", allowNull: false }, onDelete: "CASCADE" });
 
-module.exports = CoursePrices;
+module.exports = CoursePrice;

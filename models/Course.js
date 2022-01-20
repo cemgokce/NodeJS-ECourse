@@ -20,14 +20,16 @@ const Course = sequelize.define('course', {
     type: DataTypes.TEXT,
     allowNull: false
   },
-  content: {
-    type: DataTypes.TEXT,
+  rate: {
+    type: DataTypes.DOUBLE,
     allowNull: true
   },
-  ownerId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  }
+  hour: {
+    type: DataTypes.DOUBLE,
+    allowNull: true
+  },
+
+
 }, {
   // Other model options go here
   timestamps: true,
