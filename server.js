@@ -57,17 +57,34 @@ app.use("/auth", routes.auth);
 app.use("/users", routes.users);
 app.use("/roles", routes.roles);
 app.use("/userRoles", routes.userRoles);
+app.use("/userCourses", routes.userCourses);
 
 //course
 app.use("/courses", routes.courses);
 app.use("/coursePrices", routes.coursPrices);
 app.use("/courseCategories", routes.coursesCategories);
+app.use("/courseComments", routes.courseComment,);
+app.use("/courseContents", routes.courseContent);
+app.use("/courseRates", routes.courseRate);
+app.use("/courseBriefs", routes.courseBrief);
 
 //category
 app.use("/categories", routes.categories);
 
 //price
 app.use("/prices", routes.prices);
+
+//comment
+app.use("/comments", routes.comment);
+
+//rate
+app.use("/rates", routes.rate);
+
+//content
+app.use("/content", routes.content);
+
+//brief
+app.use("/brief", routes.brief);
 
 //not found
 app.use((req, res) => {
