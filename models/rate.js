@@ -8,7 +8,7 @@ const Rate = sequelize.define('rate', {
         allowNull: false,
         primaryKey: true
     },
-    deger: {
+    point: {
         type: DataTypes.DECIMAL,
         allowNull: false
     },
