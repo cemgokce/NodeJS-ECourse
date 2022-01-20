@@ -1,4 +1,4 @@
-const CourseBrief = require('../models/courseBrief')
+const CourseBrief = require('../models/courseBriefs')
 
 exports.getById = async (req, res) => {
     const { id } = req.params;
