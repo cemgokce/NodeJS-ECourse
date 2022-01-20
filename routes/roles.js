@@ -11,7 +11,7 @@ router.get("/:id", adminAuth, rolesController.getById);
 router.get("/", adminAuth, rolesController.getAll);
 
 // Protected routes
-router.post("/", adminAuth, rolesController.create);
+router.post("/", rolesController.create);
 router.put("/:id", adminAuth, rolesController.update);
 router.delete("/:id", adminAuth, rolesController.delete);
 

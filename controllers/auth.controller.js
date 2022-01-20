@@ -21,7 +21,6 @@ exports.register = async (req, res) => {
 
     // Hash password
     const hashedPassword = await saltAndHashPassword(password);
-
     // Create & Save & Authorize User
     try {
         let newUser = await User.create({
@@ -30,14 +29,12 @@ exports.register = async (req, res) => {
             email,
             password: hashedPassword
         })
-        console.log(newUser)
         // Give default role to the user (authorization concept)
         if (!rolestatus) {
-            await setStudentRole(newUser.id);
+            await setStudentRole(newUser.dataValues.id);
         } else {
-            await setTeacherRole(newUser.id);
+            await setTeacherRole(newUser.dataValues.id);
         }
-        console.log(newUser);
 
         return res.status(201).send(newUser); // TODO: { user: newUser.id } - best way is to send activation mail, then assign the default user role.
     } catch (err) {
@@ -69,12 +66,12 @@ exports.login = async (req, res) => {
     // Check if the password correct
     const validPass = await comparePasswords(password, user.password);
     if (!validPass) return res.status(400).send({ message: `Invalid password.` });
-
+   
     // Get user claims
     const roles = await getClaims(user.id);
     // Create & assign a token
     const token = jwt.sign(
-        { uii: user.id, roles: roles, email: user.email },
+        { uii: user.id, role: roles[0].role.name, email: user.email },
         process.env.TOKEN_SECRET,
         { expiresIn: process.env.TOKEN_EXP }
     );
@@ -91,7 +88,6 @@ const setStudentRole = async (userId) => {
         userId: userId,
         roleId: studentRole.id
     });
-    console.log(newUserRole);
 }
 
 const setTeacherRole = async (userId) => {
@@ -102,7 +98,6 @@ const setTeacherRole = async (userId) => {
         userId: userId,
         roleId: teacherRole.id
     });
-    console.log(newUserRole);
 }
 
 const getClaims = async (userId) => {
@@ -113,7 +108,5 @@ const getClaims = async (userId) => {
         include: { model: Role }     // Includes Roles table and selects name field only. 
     });
 
-    console.log("getClaims");
-    console.log(userRoles);
     return userRoles;
 }
