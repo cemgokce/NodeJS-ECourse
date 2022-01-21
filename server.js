@@ -67,6 +67,7 @@ app.use("/courseComments", routes.courseComments,);
 app.use("/courseContents", routes.courseContents);
 app.use("/courseRates", routes.courseRates);
 app.use("/courseBriefs", routes.courseBriefs);
+app.use("/courseUsers", routes.courseUsers);
 
 //category
 app.use("/categories", routes.categories);
@@ -81,10 +82,10 @@ app.use("/comments", routes.comments);
 app.use("/rates", routes.rates);
 
 //content
-app.use("/content", routes.contents);
+app.use("/contents", routes.contents);
 
 //brief
-app.use("/brief", routes.briefs);
+app.use("/briefs", routes.briefs);
 
 //not found
 app.use((req, res) => {

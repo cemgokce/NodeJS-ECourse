@@ -38,12 +38,7 @@ exports.create = async (req, res) => {
         });
     }
 
-    // Checks if the brief name exists
-    let briefExists = await Brief.findOne({
-        where: { name }
-    });
-    if (briefExists) return res.status(400).send({ message: `A brief named ${name} already exists!` });
-
+    
     // Create brief
     try {
 

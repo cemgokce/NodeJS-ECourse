@@ -38,17 +38,14 @@ exports.create = async (req, res) => {
         });
     }
 
-    // Checks if the content name exists
-    let contentExists = await Content.findOne({
-        where: { name }
-    });
-    if (contentExists) return res.status(400).send({ message: `A content named ${name} already exists!` });
 
     // Create content
     try {
 
         let newContent = await Content.create({
-            name
+            name,
+            description,
+            file
         });
         return res.status(201).send(newContent);
     } catch (err) {
@@ -60,7 +57,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-    const { name } = req.body;
+    const { name, description, file } = req.body;
 
     const { id } = req.params;
 
@@ -75,6 +72,12 @@ exports.update = async (req, res) => {
     try {
         if (name) {
             content.name = name;
+        }
+        if (description) {
+            content.description = description;
+        }
+        if (file) {
+            content.file = file;
         }
 
         content.save();

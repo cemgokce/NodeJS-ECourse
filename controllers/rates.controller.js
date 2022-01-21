@@ -47,10 +47,10 @@ exports.create = async (req, res) => {
     // Create rate
     try {
 
-        let newContent = await Rate.create({
-            name
+        let newRate = await Rate.create({
+            point
         });
-        return res.status(201).send(newContent);
+        return res.status(201).send(newRate);
     } catch (err) {
         return res.status(500).send({
             message: `Error : ${err.message}`,
@@ -60,7 +60,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
 
-    const { name } = req.body;
+    const { point } = req.body;
 
     const { id } = req.params;
 
@@ -73,13 +73,13 @@ exports.update = async (req, res) => {
     }
 
     try {
-        if (name) {
-            rate.name = name;
+        if (point) {
+            rate.point = point;
         }
 
         rate.save();
         return res.status(200).send({
-            message: `Rate ${name} has been updated!`,
+            message: `Rate ${id} has been updated!`,
         });
     } catch (err) {
         return res.status(500).send({

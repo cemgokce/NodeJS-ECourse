@@ -5,13 +5,13 @@ const userRoles = require("../controllers/userRoles.controller")
 
 //get methods
 //all routes starts with /userroles
-router.get("/:id", adminAuth, userRoles.getById);
+router.get("/:id",  userRoles.getById);
 router.get("/", userRoles.getAll);
 
 // Protected routes
-router.post("/", adminAuth, userRoles.create);
-router.put("/:id", adminAuth, userRoles.update);
-router.delete("/:id", adminAuth, userRoles.delete);
+router.post("/", userRoles.create);
+router.put("/:id", userRoles.update);
+router.delete("/:id", userRoles.delete);
 
 module.exports = router;
 

@@ -38,11 +38,6 @@ exports.create = async (req, res) => {
         });
     }
 
-    // Checks if the comment name exists
-    let commentExists = await Comment.findOne({
-        where: { name }
-    });
-    if (commentExists) return res.status(400).send({ message: `A comment named ${name} already exists!` });
 
     // Create comment
     try {
@@ -79,7 +74,7 @@ exports.update = async (req, res) => {
 
         comment.save();
         return res.status(200).send({
-            message: `Comment ${name} has been updated!`,
+            message: `Comment ${id} has been updated!`,
         });
     } catch (err) {
         return res.status(500).send({

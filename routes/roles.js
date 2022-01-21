@@ -7,13 +7,13 @@ const rolesController = require("../controllers/roles.controller")
 
 //get methods
 //all routes starts with /roles
-router.get("/:id", adminAuth, rolesController.getById);
-router.get("/", adminAuth, rolesController.getAll);
+router.get("/:id", rolesController.getById);
+router.get("/", rolesController.getAll);
 
 // Protected routes
 router.post("/", rolesController.create);
-router.put("/:id", adminAuth, rolesController.update);
-router.delete("/:id", adminAuth, rolesController.delete);
+router.put("/:id", rolesController.update);
+router.delete("/:id", rolesController.delete);
 
 module.exports = router;
 
