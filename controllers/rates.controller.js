@@ -39,10 +39,10 @@ exports.create = async (req, res) => {
     }
 
     // Checks if the rate name exists
-    let contentExists = await Rate.findOne({
+    let rateExists = await Rate.findOne({
         where: { point }
     });
-    if (contentExists) return res.status(400).send({ message: `A rate named ${name} already exists!` });
+    if (rateExists) return res.status(400).send({ message: `A rate named ${point} already exists!` });
 
     // Create rate
     try {

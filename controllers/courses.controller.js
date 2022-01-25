@@ -1,14 +1,21 @@
 const Course = require('../models/Course')
 const CourseCategory = require('../models/courseCategory')
 const CoursePrice = require('../models/coursePrices')
+const CourseRate = require('../models/courseRates')
+const CourseComment = require('../models/courseComments')
+const CourseContent = require('../models/courseContents')
+const CourseBrief = require('../models/courseBriefs')
 const Price = require('../models/Price')
 const Category = require('../models/category')
+const Rate = require('../models/rate')
+const Brief = require('../models/brief')
+const Comment = require('../models/comment')
+const Content = require('../models/content')
+const UserCourse = require('../models/userCourses')
+
+
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
-
-
-
-
 
 
 exports.getById = async (req, res) => {
@@ -23,7 +30,23 @@ exports.getById = async (req, res) => {
             {
                 model: CoursePrice,
                 include: [{ model: Price }]
-            }
+            },
+            {
+                model: CourseRate,
+                include: [{ model: Rate }]
+            },
+            {
+                model: CourseBrief,
+                include: [{ model: Brief }]
+            },
+            {
+                model: CourseContent,
+                include: [{ model: Content }]
+            },
+            {
+                model: CourseComment,
+                include: [{ model: Comment }]
+            },
         ],
         where: { id }
     });
@@ -35,7 +58,6 @@ exports.getById = async (req, res) => {
 
     return res.status(200).send(course);
 };
-
 exports.getAll = async (req, res) => {
     const courses = await Course.findAll();
 
@@ -47,12 +69,11 @@ exports.getAll = async (req, res) => {
 
     return res.status(200).send(courses);
 };
-
 exports.create = async (req, res) => {
     console.log(req.body);
-    const { name, photo, description, content, ownerId } = req.body;
+    const { name, photo, description, rate, hour } = req.body;
     // Checks if the product name exists. parentId can be null if the product is a parent product.
-    if (!name || !description || !ownerId) {
+    if (!name || !description) {
         return res.status(400).send({
             message: "You need to fill in the course name.",
         });
@@ -71,8 +92,8 @@ exports.create = async (req, res) => {
             name,
             photo,
             description,
-            content,
-            ownerId
+            rate,
+            hour
         });
         return res.status(201).send(newCourse);
     } catch (err) {
@@ -82,7 +103,7 @@ exports.create = async (req, res) => {
     }
 };
 exports.update = async (req, res) => {
-    const { name, photo, description, content, ownerId } = req.body;
+    const { name, photo, description, rate, hour } = req.body;
     const { id } = req.params;
 
     const course = await Course.findOne({ where: { id } });
@@ -103,11 +124,11 @@ exports.update = async (req, res) => {
         if (description) {
             course.description = description;
         }
-        if (content) {
-            course.content = content;
+        if (rate) {
+            course.rate = rate;
         }
-        if (ownerId) {
-            course.ownerId = ownerId;
+        if (hour) {
+            course.hour = hour;
         }
         course.save();
         return res.status(200).send({
@@ -140,7 +161,6 @@ exports.delete = async (req, res) => {
         });
     }
 };
-
 exports.getByCategoryId = async (req, res) => {
     const { id } = req.params;
     console.log(id)
@@ -160,8 +180,7 @@ exports.getByCategoryId = async (req, res) => {
     }
 
     return res.status(200).send(course);
-}
-
+};
 exports.getByName = async (req, res) => {
     const { name } = req.params;
     const course = await Course.findAll({
@@ -179,5 +198,6 @@ exports.getByName = async (req, res) => {
 
     return res.status(200).send(course);
 
-}
+};
+
 

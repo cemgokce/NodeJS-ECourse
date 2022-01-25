@@ -10,9 +10,9 @@ router.get("/:id", priceController.getById);
 router.get("/", priceController.getAll);
 
 // Protected routes
-router.post("/", teacherAuth, priceController.create);
-router.put("/:id", teacherAuth, priceController.update);
-router.delete("/:id", teacherAuth, priceController.delete);
+router.post("/", priceController.create);
+router.put("/:id", priceController.update);
+router.delete("/:id", priceController.delete);
 
 module.exports = router;
 

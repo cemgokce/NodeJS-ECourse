@@ -66,9 +66,10 @@ exports.login = async (req, res) => {
     // Check if the password correct
     const validPass = await comparePasswords(password, user.password);
     if (!validPass) return res.status(400).send({ message: `Invalid password.` });
-   
+
     // Get user claims
     const roles = await getClaims(user.id);
+    console.log(roles)
     // Create & assign a token
     const token = jwt.sign(
         { uii: user.id, role: roles[0].role.name, email: user.email },

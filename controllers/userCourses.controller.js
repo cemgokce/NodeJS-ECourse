@@ -1,4 +1,5 @@
 const UserCourse = require('../models/userCourses')
+const Course = require('../models/Course')
 
 exports.getById = async (req, res) => {
     const { id } = req.params;
@@ -110,3 +111,24 @@ exports.delete = async (req, res) => {
         });
     }
 };
+
+exports.getByTeacherId = async (req, res) => {
+    const { id } = req.params;
+    console.log(id)
+    const course = await UserCourse.findAll({
+        include: [
+            {
+                model: Course,
+            }
+        ],
+        where: { userId: id },
+    });
+    if (!course) {
+        return res.status(404).send({
+            message: `No courses found with the id ${id}`,
+        });
+    }
+
+    return res.status(200).send(course);
+}
+

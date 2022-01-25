@@ -13,5 +13,8 @@ router.post("/", userCourseController.create);
 router.put("/:id", userCourseController.update);
 router.delete("/:id", userCourseController.delete);
 
+//extra get request
+router.get("/:id/teacher",userCourseController.getByTeacherId);
+
 module.exports = router;
 
